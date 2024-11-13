@@ -4,6 +4,8 @@ import { useWeather } from './useWeather'
 import { useImageSearch } from './useImageSearch'
 import type { Item } from '~/types/image.interface';
 
+const clientCity = ref<string | undefined>("");
+const clientCountry = ref<string | undefined>('')
 const city = ref<string | undefined>("");
 const country = ref<string | undefined>('')
 const weather = ref<WeatherResponse | null>(null);
@@ -23,8 +25,8 @@ const fetchData = async () => {
 
   try {
     const [weatherData, imagesData] = await Promise.all([
-      useWeather(city.value),
-      useImageSearch(city.value)
+      useWeather(),
+      useImageSearch()
     ])
     weather.value = weatherData
     city.value = weatherData.location?.name
@@ -41,6 +43,8 @@ const fetchData = async () => {
 
 export const useFetchData = () => {
   return {
+    clientCity,
+    clientCountry,
     city,
     country,
     weather,

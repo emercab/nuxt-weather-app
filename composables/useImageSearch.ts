@@ -1,20 +1,22 @@
 import type { ImageResponse, Item } from '~/types/image.interface'
 
-export const useImageSearch = async (city: string): Promise<Item[]> => {
+export const useImageSearch = async (): Promise<Item[]> => {
+  const { city, country } = useFetchData()
+
   const config = useRuntimeConfig()
   const API_KEY = config.public.googleApiKey
   const CX = config.public.customSearchCx
   const url = 'https://www.googleapis.com/customsearch/v1'
   // set random number between 1 and 91 to avoid cache
-  const num = Math.floor(Math.random() * 91) + 1
+  const num = Math.floor(Math.random() * 31) + 1
   const params = {
-    q: `images+of+${city}+city`,
+    q: `${city.value}+places+${country.value}`,
     searchType: 'image',
     cx: CX,
     key: API_KEY,
     imgType: 'photo',
     imgSize: 'medium',
-    dateRestrict: 'm1',
+    dateRestrict: 'y1',
     start: num,
   }
 

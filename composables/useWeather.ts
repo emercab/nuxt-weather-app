@@ -1,6 +1,7 @@
 import type { WeatherResponse } from '~/types/weather.interface'
 
-export const useWeather = async (city: string): Promise<WeatherResponse> => {
+export const useWeather = async (): Promise<WeatherResponse> => {
+  const { city } = useFetchData()
   const config = useRuntimeConfig()
   const API_KEY = config.public.weatherApiKey
 
@@ -8,7 +9,7 @@ export const useWeather = async (city: string): Promise<WeatherResponse> => {
     const url = 'http://api.weatherapi.com/v1/current.json'
     const params = {
       key: API_KEY,
-      q: city,
+      q: city.value,
     }
     const response = await $fetch<WeatherResponse>(url, { params })
 
