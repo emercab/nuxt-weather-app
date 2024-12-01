@@ -10,7 +10,7 @@ export const useImageSearch = async (): Promise<Item[]> => {
   // set random number between 1 and 91 to avoid cache
   const num = Math.floor(Math.random() * 31) + 1
   const params = {
-    q: `${city.value}+places+${country.value}`,
+    q: `${city.value}+city+places+${country.value}`,
     searchType: 'image',
     cx: CX,
     key: API_KEY,
